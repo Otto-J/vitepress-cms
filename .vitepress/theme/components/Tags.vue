@@ -1,6 +1,6 @@
 <template>
   <div class="tags">
-    <span @click="toggleTag(key)" v-for="(item, key) in data" class="tag">
+    <span @click="toggleTag(String(key))" v-for="(item, key) in data" class="tag">
       {{ key }} <strong>{{ data[key].length }}</strong>
     </span>
   </div>
@@ -14,14 +14,18 @@
   </a>
 </template>
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useData, withBase } from 'vitepress'
 import { initTags } from '../functions'
-let url = location.href.split('?')[1]
-let params = new URLSearchParams(url)
+
+onMounted(() => {
+  let url = location.href.split('?')[1] ?? ''
+  let params = new URLSearchParams(url)
+  selectTag.value = params.get('tag') ? (params.get('tag') as string) : ''
+})
 const { theme } = useData()
 const data = computed(() => initTags(theme.value.posts))
-let selectTag = ref(params.get('tag') ? params.get('tag') : '')
+let selectTag = ref('')
 const toggleTag = (tag: string) => {
   selectTag.value = tag
 }
