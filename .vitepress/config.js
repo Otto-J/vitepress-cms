@@ -34,7 +34,28 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/airene/vitepress-blog-pure' }]
   },
   srcExclude: ['README.md'], // exclude the README.md , needn't to compiler
-
+  head: [
+    [
+      'script',
+      {
+        src: '/identity.netlify.com_v1_netlify-identity-widget.js'
+        // src: 'https://identity.netlify.com/v1/netlify-identity-widget.js'
+      }
+    ],
+    [
+      'scirpt',
+      {},
+      `if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }`
+    ]
+  ],
   vite: {
     //build: { minify: false }
     server: { port: 5000 }
