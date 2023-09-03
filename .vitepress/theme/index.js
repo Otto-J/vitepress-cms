@@ -12,7 +12,7 @@ export default {
   ...DefaultTheme,
   Layout: NewLayout,
   enhanceApp({ app }) {
-    // register global compoment
+    // register global components
     app.component('Tags', Tags)
     app.component('Archives', Archives)
     app.component('Page', Page)
