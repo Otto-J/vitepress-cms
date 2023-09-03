@@ -1,6 +1,6 @@
 <template>
-    <Layout />
-    <Copyright />
+  <Layout />
+  <Copyright />
 </template>
 <script setup>
 import DefaultTheme from 'vitepress/theme'
