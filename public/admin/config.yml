@@ -1,3 +1,47 @@
+# local_backend:
+#   allowed_hosts: ['192.168.0.1']
+
 backend:
   name: git-gateway
-  branch: main
+  branch: feature/add-cms
+  cms_label_prefix: Otto
+
+publish_mode: editorial_workflow
+display_url: https://vitepress-tibi-cms.netlify.app
+site_url: https://vitepress-tibi-cms.netlify.app
+show_preview_links: true # default is true
+
+media_folder: 'public/images/uploads'
+public_folder: '/images/uploads'
+
+locale: 'zh_Hans'
+
+collections:
+  - name: 'post'
+    label: '文章'
+    folder: 'posts'
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: '标题', name: 'title', widget: 'string' }
+      - { label: '正文', name: 'body', widget: 'markdown' }
+      - { label: '发布日期 Date', name: 'date', widget: 'datetime', picker_utc: false, format: 'YYYY-MM-DD HH:mm:ss' }
+      - { label: '关键词', name: 'keywords', widget: 'string', hint: 'seo 要求' }
+      - { label: '描述', name: 'description', widget: 'text', hint: 'seo 要求' }
+
+      # 排序权重 order number 0-99
+      - {
+          label: '排序权重',
+          name: 'order',
+          widget: 'number',
+          default: 0,
+          min: 0,
+          max: 99,
+          value_type: 'int',
+          hint: '数字越大越靠前，当置顶使用'
+        }
+      # tags list string
+      - { label: '标签', name: 'tags', widget: 'list', field: { label: '标签', name: 'tag', widget: 'string' } }
+
+      # 演示 select
+      # - { label: '分类', name: 'category', widget: 'select', options: ['en', 'es'] }
