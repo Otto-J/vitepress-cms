@@ -60,7 +60,23 @@ export default defineConfig({
   vite: {
     //build: { minify: false }
     server: { port: 5000 }
+  },
+  async transformHead(ctx) {
+    ctx.pageData.frontmatter.head ??= []
+    // console.log(1, 33, ctx.pageData.frontmatter)
+    if (ctx.pageData.frontmatter.keywords) {
+      return [
+        [
+          'meta',
+          {
+            name: 'keywords',
+            content: ctx.pageData.frontmatter.keywords
+          }
+        ]
+      ]
+    }
   }
+
   /*
       optimizeDeps: {
           keepNames: true
